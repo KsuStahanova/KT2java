@@ -1,0 +1,139 @@
+Nu2
+public static void main(String[] args) {
+        String[] strings = {"Boston_Bruins", "Calgary_Flames",
+                "Dallas_Stars",
+                "Detroit_Red_Wings",
+                "Edmonton_Oilers",
+                "Florida_Panthers",
+                "Los Angeles Kings",
+                "Minnesota_Wild",
+                "Toronto_Maple_Leafs",
+                "Vancouver_Canucks",
+                "Vegas_Golden_Knights",
+                "Washington_Capitals",
+                "Winnipeg_Jets",
+                "Arizona Coyotes",
+                "Buffalo_Sabres"
+        };
+        Filter filter = (arr, letter) -> Arrays.stream(arr)
+                .filter(str -> str.startsWith(letter))
+                .toArray(String[]::new);
+        String[] filteredStrings = filter.filterStringsStartingWith(strings, "W");
+        System.out.println(Arrays.toString(filteredStrings));
+    }
+    interface Filter {
+        String[] filterStringsStartingWith(String[] arr, String letter);
+    }
+}
+Фильр работает по первой букве заглваной букве  .
+####################################################################################################################################
+Num1
+public class Calculator {
+    @FunctionalInterface
+    interface Calculator {
+        int calculate(int a, int b);
+    }
+
+    public static void main(String[] args) {
+        Calculator plus = (a, b) -> a + b;
+        Calculator minus = (a, b) -> a - b;
+        Calculator mnosh = (a, b) -> a * b;
+        Calculator divi = (a, b) ->  {
+            if (b == 0 || a == 0 ) {
+                return a / b ;
+            } else {
+                throw new ArithmeticException("Что то идет не по плану !! Прверь еще Раз !!");
+            }
+
+        };
+
+        int a = -5;
+        int b = 9;
+
+        System.out.println("Плюсик " + plus.calculate(a, b));
+        System.out.println("Минусик  " + minus.calculate(a, b));
+        System.out.println("Умножим  " + mnosh.calculate(a, b));
+        System.out.println("Разделим  " + divi.calculate(a, b));
+    }
+}
+Описанние : Калькулятор работает с положительными и отрец.числами . Занет команды +, -, ^ .
+###############################################################################################################################################
+Num3
+@FunctionalInterface
+public interface Revers  {
+    String reverse(String input);
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Revers reverser = (String input) -> {
+            String reversed = "";
+            for (int i = input.length() - 1; i >= 0; i--) {
+                reversed += input.charAt(i);
+            }
+            return reversed;
+        };
+
+        String input = "World , Chewing_gum";
+        String reversed = reverser.reverse(input);
+        System.out.println("Реверс: " + reversed);
+    }
+}
+Описание : В коде создается функциональный интерфейс Reverser содержащий один метод reverse, который принимает строку и возвращает ее в зеркальном виде Позже через лямбда  
+реализует этот метод , созданием новой строки и добавления символов из первой  строки в зеркальном порядке. 
+################################################################################################################################################################################
+Num5
+@FunctionalInterface
+interface PrimeCheck {
+    boolean check(int number);
+}
+
+public class Main {
+    public static void main(String[] args) {
+        PrimeCheck primeCheck = (number) -> {
+            if (number < 2) {
+                return false;
+            }
+            for (int i = 2; i <= Math.sqrt(number); i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        System.out.println(primeCheck.check(37)); 
+        System.out.println(primeCheck.check(10)); \
+        System.out.println(primeCheck.check(7));
+        System.out.println(primeCheck.check(0));
+    }
+}
+Описание:интерфейсе "PrimeCheck" объявляется метод "check", который принимает число типа int . Если число просто то true если нет то false
+В методе main создается объект "primeCheck" с помощью лямбда-выражения, которое реализует проверку чисел . 
+####################################################################################################################################################################
+Num4
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Integer[] number = {20,21,22,23,24,25,36,37,38,39,40};
+
+        Filter filterNumbers = (arr) -> {
+            return Arrays.stream(arr)
+                    .filter(num -> num % 2 != 0)
+                    .toArray(Integer[]::new);
+        };
+
+        Integer[] NonPar = filterNumbers.filter(number);
+
+        System.out.println("Непара : " + Arrays.toString(NonPar));
+    }
+
+    interface Filter{
+        Integer[] filter(Integer[] numbers);
+    }
+}
+Вывод: Непара : [21, 23, 25, 37, 39]
+Описание :создаем объект filterNumbers с помощью лямбда-выражения, lдля фильрации чисел в новый массив , 
+состоящий только из непарных чисел, используя метод Arrays.stream() и метод filter().
